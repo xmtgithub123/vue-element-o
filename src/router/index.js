@@ -1,15 +1,27 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import {routerMode} from '@/config/env'
 
+import Router from 'vue-router'
+import home from '@/pages/home/index'
+import city from '@/pages/city/index'
 Vue.use(Router)
 
 export default new Router({
+  mode:routerMode,
+  strict: process.env.NODE_ENV !== 'production',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'home',
+      component: home
+    },
+    {
+      path:'/city/:cityid',
+      component:city
+    },
+    {
+    	path:'*',
+    	redirect:'/home'
     }
   ]
 })
