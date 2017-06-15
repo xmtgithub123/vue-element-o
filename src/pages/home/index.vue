@@ -8,11 +8,9 @@
                 <span>当前定位城市：</span>
                 <span>定位不准时，请在城市列表中选择</span>
             </div>
-            <router-link :to="'/'" class="guess_city">
+            <router-link :to="'/city/' + guessCityid" class="guess_city">
                 <span>{{guessCity}}</span>
-                <svg class="arrow_right">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-                </svg>
+               
             </router-link>  
         </nav>
         <section id="hot_city_container">
@@ -60,25 +58,26 @@
         },
         mounted(){
             //获取当前城市
-            cityGuess().then(res => {
-                console.log(res.data)
-                this.guessCity = res.data.name;
-                this.guessCityid = res.data.id;
-                console.log(this.guessCityid)
-            }),
-
+            this.getCityGuess();
             //获取热门城市
-            hotcity().then(res => {
-                console.log(res)
-                this.hotcity = res.data;
-            }),
-            
+            this.getHotCity();
             //获取所有城市
-            groupcity().then(res => {
-                this.groupcity = res.data;
-            })
+            this.getGroupCity();
         },
         methods:{
+            async getCityGuess(){ //获取当前城市
+                const res = await cityGuess();
+                this.guessCity = res.data.name;
+                this.guessCityid = res.data.id;
+            },
+            async getHotCity() { //获取热门城市
+                const res = await hotcity();
+                this.hotcity = res.data;
+            },
+            async getGroupCity() { //获取所有城市
+                const res = await groupcity();
+                this.groupcity = res.data;
+            },
             //点击图标刷新页面
             reload(){
                 window.location.reload()
