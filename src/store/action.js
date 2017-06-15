@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {fetchHotCity} from './api'
+import {fetchUserInfo,fetchHotCity} from './api'
 
 export default {
 	// async FETCH_HOTCITY({commit}) {
@@ -12,4 +12,10 @@ export default {
 	// 	}
 		
 	// }
+
+	//获取用户信息
+	 async getUserInfo({commit,state}) {
+ 		let res = await fetchUserInfo()
+ 		commit('SET_USER_INFO',{userInfo:res.data})
+	 }
 }

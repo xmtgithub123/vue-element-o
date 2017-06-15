@@ -7,6 +7,7 @@ import * as api from './api'
 Vue.use(Vuex)
 const state = {
 	hotcity:[], // 热门城市
+	userInfo:null, //用户信息
 }
 export default new Vuex.Store({
 	state,

@@ -6,9 +6,9 @@
     		<i class="fa fa-chevron-left" aria-hidden="true" style="color:white;"></i>
     	</section>
     	<router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">
-            <svg class="user_avatar" v-if="userInfo">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-            </svg>
+            <span v-if="userInfo">
+                <i class="fa fa-chevron-left" aria-hidden="true" style="color:white;"></i>
+            </span>
             <span class="login_span" v-else>登录|注册</span>
         </router-link>
         <section class="title_head ellipsis" v-if="headTitle">
@@ -30,9 +30,15 @@
 			}
 		},
 		mounted(){
-
+            this.getUserInfo()
 		},
-		props:['signinUp','headTitle','goBack']
+		props:['signinUp','headTitle','goBack'],
+        computed:{
+            ...mapState(['userInfo']),
+        },
+        methods:{
+            ...mapActions(['getUserInfo']),
+        }
 	}
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

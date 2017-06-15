@@ -1,9 +1,6 @@
 <template>
   	<div class="city_container">
         <v-head :head-title="cityname" go-back='true'>
-               <!--  <router-link :to="'/comment/'+ item.id">
-                    <img :src="item.images" alt="" class="img-responsive" v-lazy="item.images[0]">
-                </router-link> -->
             <router-link to="'/home'" slot="changecity" class="change_city">切换城市</router-link>
         </v-head>
        <form class="city_form" v-on:submit.prevent>
@@ -58,6 +55,7 @@
         },
         methods:{
             initData() {
+                //获取搜索历史记录
                 if(getStore('placeHistory')) {
                     this.placelist = JSON.parse(getStore('placeHistory'))
                 }
@@ -65,7 +63,9 @@
                     this.placelist = []
                 }
             },
+            //发送搜索信息inputVaule
             postpois(){
+                //输入值不为空时才发送信息
                 if(this.inputVaule) {
                     searchplace(this.cityid,this.inputVaule).then(res => {
                         this.historytitle = false

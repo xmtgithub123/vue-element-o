@@ -2,8 +2,10 @@ import Vue from 'vue'
 import {routerMode} from '@/config/env'
 
 import Router from 'vue-router'
-import home from '@/pages/home/index'
-import city from '@/pages/city/index'
+import home from '@/pages/home/'
+import city from '@/pages/city/'
+import login from '@/pages/login/'
+
 
 Vue.use(Router)
 
@@ -38,13 +40,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      // component: home
-      component: resolve => require(['../pages/home/'],resolve)
+      component: home
     },
     {
       path:'/city/:cityid',
-      component: resolve => require(['../pages/city/'],resolve)
-      // component:city
+      component: city
+    },
+
+    //登录注册页
+    {
+      path:'/login',
+      component:login
     }
   ]
 })

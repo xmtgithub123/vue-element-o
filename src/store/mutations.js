@@ -6,5 +6,7 @@ export default {
 	// 	console.log(hotcity)
 	// 	state.hotcity = hotcity
 	// }
-	
+	SET_USER_INFO:(state,{userInfo}) => {
+		
+	}
 }
