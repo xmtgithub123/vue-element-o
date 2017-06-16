@@ -5,7 +5,7 @@
     	<section class="head_goback" v-if="goBack" @click="$router.go(-1)">
     		<i class="fa fa-chevron-left" aria-hidden="true" style="color:white;"></i>
     	</section>
-    	<router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">
+    	<router-link :to="'/login'"  class="head_login">
             <span v-if="userInfo">
                 <i class="fa fa-chevron-left" aria-hidden="true" style="color:white;"></i>
             </span>

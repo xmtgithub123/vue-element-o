@@ -14,6 +14,8 @@
                 <input type="text" placeholder="验证码" name="mobileCode" maxlength="6" v-model="mobileCode">
             </section>
         </form>
+
+
         <form class="loginForm" v-else>
             <section class="input_container">
                 <input type="text" placeholder="账号" v-model.lazy="userAccount">
@@ -55,6 +57,9 @@
 	 import {toast} from '../../config/mUtils'
 	 import VAlertTip from '../../components/common/alertTip'
 	 import {localapi, proapi, imgBaseUrl} from '../../config/env'
+     import {mapState, mapMutations} from 'vuex'
+     import axios from 'axios'
+     import qs from 'qs'
 	 import {mobileCode, checkExsis, sendLogin, getcaptchas, accountLogin} from '../../service/getData'
 	 export default {
 	 	data() {
@@ -89,6 +94,9 @@
             }
 	 	},
 	 	methods:{
+            ...mapMutations([
+                'RECORD_USERINFO'
+            ]),
 	 		//改变登录方式
 	 		changeLoginWay(){
                this.loginWay = !this.loginWay;
@@ -106,14 +114,33 @@
             async getVerifyCode(){
                 if(this.rightPhoneNumber) {
                 	this.computedTime =30;
-                	this.timer = setInterval(()=> {
+                	this.timemobileCoder = setInterval(()=> {
                 		this.computed--
                 		if(this.computedTime ==0) {
                 			clearInterval(this.timer)
                 		}
                 	},1000)
+
+                    //判断用户是否存在
+                    let exsis = await checkExsis(this.phoneNumber,'mobile')
+                    if(exsis.message) {
+                        toast(exsis.message)
+                        return 
+                    }else if(!exit.is_exists) {
+                        toast('您输入的手机号尚未绑定')
+                        return
+                    }
+                    //发送短信验证码
+                    let res = await mobileCode(this.phoneNumber) 
+                    if(res.message) {
+                        toast(res.message)
+                        return
+                    }
+                    this.validate_token = res.validate_token
                 }
             },
+          
+               
             //发送登录信息
             async mobileLogin(){
                 if(this.loginWay) {
@@ -135,6 +162,18 @@
                 		toast('请输入验证码')
                 		return
                 	}
+
+                    this.userInfo = await accountLogin(this.userAccount,this.password,this.codeNumber)
+                    console.log(this.userInfo)
+                    
+                }
+                if(!this.userInfo.user_id) {
+                    toast('登录失败')
+                    if(!this.loginWay) this.getCaptchaCode()
+                }else {
+                    toast('登录成功')
+                    this.RECORD_USERINFO(this.userInfo)
+                    this.$router.go(-1)
                 }
             },
 	 		closeTip() {

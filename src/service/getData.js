@@ -1,5 +1,5 @@
-// import fetch from '../config/fetch'
-// import {getStore} from '../config/mUtils'
+import fetch from '../config/fetch'
+import {getStore} from '../config/mUtils'
 let baseURL = 'http://cangdu.org:8001'
  //https://mainsite-restapi.ele.me
 import axios from 'axios'
@@ -29,19 +29,14 @@ export const searchplace = (cityid, value) => axios(baseURL + '/v1/pois', {param
  * 获取短信验证码
  */
 
-// export const mobileCode = phone => axios('/v4/mobile/verify_code/send', {
-// 	mobile: phone,
-// 	scene: 'login',
-// 	type: 'sms'
-// }, 'POST');
+export const mobileCode = phone => axios.post(baseURL + '/v4/mobile/verify_code/send', {params:{mobile: phone,scene: 'login',type: 'sms'}});
 
 
 /**
  * 获取图片验证码
  */
 
-export const getcaptchas = () => axios.post(baseURL + '/v1/captchas', {});
-
+export const getcaptchas = () => axios.post(baseURL + '/v1/captchas');
 
 /**
  * 检测帐号是否存在
@@ -53,3 +48,7 @@ export const checkExsis = (checkNumber, type) => axios(baseURL + '/v1/users/exis
  */
 
 export const sendLogin = (code, mobile, validate_token) => axios.post(baseURL + '/v1/login/app_mobile', {params:{code,mobile,validate_token}});
+/**
+ * 账号密码登录
+ */
+export const accountLogin = (username, password, captcha_code) => fetch(baseURL + '/v2/login', {username, password, captcha_code}, 'POST');
