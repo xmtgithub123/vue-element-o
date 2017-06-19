@@ -79,7 +79,7 @@
                 alertText: null, //提示的内容
             }
 	 	},
-	 	created() {
+	 	mounted() {
 	 		this.getCaptchaCode()
 	 	},
 	 	components:{
@@ -108,6 +108,7 @@
             //获取验证吗，线上环境使用固定的图片，生产环境使用真实的验证码
             async getCaptchaCode(){
                 let res = await getcaptchas();
+                console.log(res)
                 this.captchaCodeImg = res.data.code;
             },
             //获取短信验证码
@@ -168,8 +169,8 @@
                     
                 }
                 if(!this.userInfo.user_id) {
-                    toast('登录失败')
                     if(!this.loginWay) this.getCaptchaCode()
+                    toast('登录失败')
                 }else {
                     toast('登录成功')
                     this.RECORD_USERINFO(this.userInfo)
