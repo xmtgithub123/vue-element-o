@@ -37,8 +37,9 @@ export const mobileCode = phone => axios.post(baseURL + '/v4/mobile/verify_code/
  * 获取图片验证码
  */
 
-export const getcaptchas = () => fetch(baseURL + '/v1/captchas', {},'POST');
+// export const getcaptchas = () => fetch(baseURL + '/v1/captchas', {},'POST');
 
+export const getcaptchas = () => fetch(baseURL + '/v1/captchas', {},'POST');
 /**
  * 检测帐号是否存在
  */
@@ -54,7 +55,3 @@ export const sendLogin = (code, mobile, validate_token) => axios.post(baseURL + 
 //  */
 // export const accountLogin = (username, password, captcha_code) => fetch(baseURL + '/v2/login', {username, password, captcha_code}, 'POST');
 
-/**
- * 账号密码登录
- */
-export const accountLogin = (username, password, captcha_code) => fetch( baseURL + '/v2/login', {username, password, captcha_code}, 'POST');
