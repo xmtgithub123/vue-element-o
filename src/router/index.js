@@ -10,7 +10,7 @@ import login from '@/pages/login/'
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+  mode:routerMode,
   strict: process.env.NODE_ENV !== 'production',
   scrollBehavior: (to, from, savedPosition) => {
       if (savedPosition) {
@@ -25,16 +25,6 @@ export default new Router({
         position.y = +sessionStorage.getItem('scrollTop') || 0
       }
       return position
-  },
-  beforeEach: ({meta, path},from, next) => {
-    router.beforeEach(({meta, path}, from, next) => {
-        var { auth = true } = meta
-        var isLogin = Boolean(store.state.user.accesstoken) //true用户已登录， false用户未登录
-        if (auth && !isLogin && path !== '/') {
-            return next({ path: '/' })
-        }
-        next()
-    })
   },
   routes: [
     {

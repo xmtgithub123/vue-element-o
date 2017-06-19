@@ -79,7 +79,7 @@
                 alertText: null, //提示的内容
             }
 	 	},
-	 	mounted() {
+	 	created() {
 	 		this.getCaptchaCode()
 	 	},
 	 	components:{
@@ -95,7 +95,7 @@
 	 	},
 	 	methods:{
             ...mapMutations([
-                'RECORD_USERINFO'
+                'RECORD_USERINFO',
             ]),
 	 		//改变登录方式
 	 		changeLoginWay(){
@@ -109,7 +109,7 @@
             async getCaptchaCode(){
                 let res = await getcaptchas();
                 console.log(res)
-                this.captchaCodeImg = res.data.code;
+                this.captchaCodeImg = res.code;
             },
             //获取短信验证码
             async getVerifyCode(){
@@ -164,7 +164,7 @@
                 		return
                 	}
 
-                    this.userInfo = await accountLogin(this.userAccount,this.password,this.codeNumber)
+                    this.userInfo = await accountLogin(this.userAccount,this.passWord,this.codeNumber)
                     console.log(this.userInfo)
                     
                 }

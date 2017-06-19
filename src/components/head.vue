@@ -7,7 +7,7 @@
     	</section>
     	<router-link :to="'/login'"  class="head_login">
             <span v-if="userInfo">
-                <i class="fa fa-chevron-left" aria-hidden="true" style="color:white;"></i>
+                <i class="fa fa-user" aria-hidden="true" style="color:white;"></i>
             </span>
             <span class="login_span" v-else>登录|注册</span>
         </router-link>
