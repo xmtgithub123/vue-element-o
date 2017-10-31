@@ -53,5 +53,8 @@ export const sendLogin = (code, mobile, validate_token) => axios.post(baseURL + 
 // /**
 //  * 账号密码登录
 //  */
-// export const accountLogin = (username, password, captcha_code) => fetch(baseURL + '/v2/login', {username, password, captcha_code}, 'POST');
+
+// 晚点换qs试下
+// export const accountLogin = (username, password, captcha_code) => axios(baseURL + '/v2/login',{params:{username, password, captcha_code}});
+export const accountLogin = (username, password, captcha_code) => fetch(baseURL + '/v2/login', {username, password, captcha_code}, 'POST');
 

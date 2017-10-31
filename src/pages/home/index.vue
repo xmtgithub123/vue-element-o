@@ -90,9 +90,11 @@
                 var that = this;
                 for (let i = 65; i <= 90; i++) {
                    if (this.groupcity[String.fromCharCode(i)]) {
+
                         sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
                     }
                 }
+                console.log(sortobj)
                 return sortobj
             }
         }
