@@ -5,7 +5,8 @@ import Router from 'vue-router'
 import home from '@/pages/home/'
 import city from '@/pages/city/'
 import login from '@/pages/login/'
-
+import profile from '@/pages/profile/'
+import info from '@/pages/profile/children/info/'
 
 Vue.use(Router)
 
@@ -41,6 +42,14 @@ export default new Router({
     {
       path:'/login',
       component:login
+    },
+    {
+      path:'/profile',
+      component:profile,
+      children:[{
+        path:'info',//个人信息详情页
+        component:info
+      }]
     }
   ]
 })
